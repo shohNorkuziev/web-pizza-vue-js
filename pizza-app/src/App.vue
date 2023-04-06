@@ -1,14 +1,14 @@
 <script setup>
-import Index from './components/index.vue'
+import Header from './components/Header.vue'
 </script>
 
 <template>
-  <div>
-
-    <index/>
+  <div class="wrapper">
+    <Header/>
+    
+    <router-view>
+    </router-view>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
