@@ -1,34 +1,41 @@
-<script setup>
+<script>
 import Pizza from './Pizza.vue';
-import axios from 'axios'
+import { reactive } from 'vue';
 
-const data = () => {
-  return {
-    pizzas: [
+export default {
+  name: 'Index',
+  components: { Pizza },
+  data() {return{
+     pizzas : reactive([
       {
-        name: 'Margherita',
-        price: 9.99,
-        
+        id:1,
+        title: 'Margherita',
+        price: 9.99,     
       },
       {
-        name: 'Margherita',
-        price: 9.99,
-      },
-      {
-        name: 'Margherita',
-        price: 9.99,
-      },
-      {
-        name: 'Margherita',
+        id:2,
+        title: 'Margherita',
         price: 9.99,
       },
       {
-        name: 'Margherita',
+        id:3,
+        title: 'Margherita',
         price: 9.99,
       },
-    ],
-  };
-};
+      {
+        id:4,
+        title: 'Margherita',
+        price: 9.99,
+      },
+      {
+        id:5,
+        title: 'Margherita',
+        price: 9.99,
+      },
+    ])
+ }
+  }
+}
 </script>
 
 <template>
@@ -68,7 +75,7 @@ const data = () => {
         </div>
         <h2 class="content__title">Все пиццы</h2>
         <div class="content__items">
-          <Pizza v-for="i in 6" :key="i" title="ananas" :price="120"/>
+          <Pizza v-for="pizza in pizzas" :key="pizza.id" :price="pizza.price" :title="pizza.title"/>
         </div>
       </div>
     </div>
