@@ -1,6 +1,10 @@
-<script setup>
-
-
+<script>
+export default {
+props: {
+  title: String,
+  price: Number
+}
+}
 
 </script>
 
@@ -9,7 +13,7 @@
     <img class="pizza-block__image"
       src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
       alt="Pizza" />
-    <h4 class="pizza-block__title">Чизбургер-пицца</h4>
+    <h4 class="pizza-block__title">{{ title }}</h4>
     <div class="pizza-block__selector">
       <ul>
         <li class="active">тонкое</li>
@@ -22,7 +26,7 @@
       </ul>
     </div>
     <div class="pizza-block__bottom">
-      <div class="pizza-block__price">от 395 ₽</div>
+      <div class="pizza-block__price">от {{ price }} руб</div>
       <div class="button button--outline button--add">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

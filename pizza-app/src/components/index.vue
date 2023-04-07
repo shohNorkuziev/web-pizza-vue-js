@@ -1,9 +1,34 @@
 <script setup>
-import Pizza from './pizza.vue'
-defineProps({
-  
-})
+import Pizza from './Pizza.vue';
+import axios from 'axios'
 
+const data = () => {
+  return {
+    pizzas: [
+      {
+        name: 'Margherita',
+        price: 9.99,
+        
+      },
+      {
+        name: 'Margherita',
+        price: 9.99,
+      },
+      {
+        name: 'Margherita',
+        price: 9.99,
+      },
+      {
+        name: 'Margherita',
+        price: 9.99,
+      },
+      {
+        name: 'Margherita',
+        price: 9.99,
+      },
+    ],
+  };
+};
 </script>
 
 <template>
@@ -43,7 +68,7 @@ defineProps({
         </div>
         <h2 class="content__title">Все пиццы</h2>
         <div class="content__items">
-          <Pizza v-for="i in 6" :key="i"/>
+          <Pizza v-for="i in 6" :key="i" title="ananas" :price="120"/>
         </div>
       </div>
     </div>
