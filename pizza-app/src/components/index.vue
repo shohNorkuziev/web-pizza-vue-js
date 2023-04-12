@@ -38,13 +38,14 @@ export default {
   },
   methods:{
     addPizzaToCart(event ){
+      console.log(event.diameter,event.dough)
       if (!this.cart[event.id]){
         this.cart[event.id] = [];
       }
 
       this.cart[event.id].push({
-        diameter: this.diameter,
-        dough: this.dough
+        diameter: event.diameter,
+        dough: event.dough,
       });
     },
   }
@@ -88,10 +89,11 @@ export default {
         <pre>{{ cart }}</pre>
         <div class="content__items">
           <Pizza v-for="pizza in pizzas" 
-          :key="pizza.id" :id="pizza.id" 
+          :key="pizza.id" 
+          :id="pizza.id" 
           :price="pizza.price" 
           :title="pizza.title"
-          @addToCart="addPizzaToCart"/>
+          @add-to-cart="addPizzaToCart"/>
         </div>
       </div>
     </div>
