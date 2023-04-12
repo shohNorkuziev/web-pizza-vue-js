@@ -32,15 +32,26 @@ export default {
         title: 'Margherita',
         price: 9.99,
       },
-    ])
+    ]),
+    cart:{}
  }
+  },
+  methods:{
+    addPizzaToCart(event ){
+      if (!this.cart[event.id]){
+        this.cart[event.id] = [];
+      }
+
+      this.cart[event.id].push({
+        diameter: this.diameter,
+        dough: this.dough
+      });
+    },
   }
 }
 </script>
 
 <template>
- 
- 
     <div class="content">
       <div class="container">
         <div class="content__top">
@@ -74,12 +85,16 @@ export default {
           </div>
         </div>
         <h2 class="content__title">Все пиццы</h2>
+        <pre>{{ cart }}</pre>
         <div class="content__items">
-          <Pizza v-for="pizza in pizzas" :key="pizza.id" :price="pizza.price" :title="pizza.title"/>
+          <Pizza v-for="pizza in pizzas" 
+          :key="pizza.id" :id="pizza.id" 
+          :price="pizza.price" 
+          :title="pizza.title"
+          @addToCart="addPizzaToCart"/>
         </div>
       </div>
     </div>
-
 </template>
 
 <style scoped>
