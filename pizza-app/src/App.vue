@@ -5,10 +5,10 @@ import Header from './components/Header.vue'
 <template>
   <div class="wrapper">
     <Header/>
-    
-    <router-view>
-    </router-view>
+    <router-view></router-view>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -1,29 +1,45 @@
 <script>
+import { ref, computed } from 'vue'
+import useCart from '../composables/useCART'
 export default {
-  name: "Pizza",
+
   props: {
-    id:Number,
+    id: Number,
     title: String,
     price: Number,
-    
 
   },
-  data(){
-    return{
-      selectedDough:'тонкое',
-      doughs:['тонкое','традиционное'],
-      selectedDiameter:26,
-      diameters:[26,30,40]
+  data() {
+    return {
+      doughs: ['тонкое', 'традиционное'],
+      diameters: [26, 30, 40]
     }
   },
-  methods:{
-    addToCart(){
-      this.$emit('add-to-cart',{
-        id: this.id,
-        diameter: this.selectedDiameter,
-        dough: this.selectedDough,
+  setup(props) {
+    const { addPizza, getCountForId, items } = useCart()
+
+    const selectedDiameter = ref(26)
+    const selectedDough = ref('тонкое')
+
+    const addToCart = () => {
+      addPizza({
+        id: props.id,
+        diameter: selectedDiameter.value,
+        dough: selectedDough.value,
+        price: props.price
       })
-    },
+      console.log(items)
+    };
+
+    const count = computed(() => getCountForId(props.id))
+
+    return {
+      selectedDiameter,
+      selectedDough,
+      addToCart,
+      count,
+
+    }
   }
 }
 
@@ -37,21 +53,12 @@ export default {
     <h4 class="pizza-block__title">{{ title }}</h4>
     <div class="pizza-block__selector">
       <ul>
-        <li 
-        v-for="dough in doughs" 
-        :key="dough"
-        :class="{'active' : dough === selectedDough}"
-        @click="selectedDough = dough"
-        >
-        {{ dough }}
-      </li>
+        <li v-for="dough in doughs" :key="dough" :class="{ 'active': dough === selectedDough }"
+          @click="selectedDough = dough" v-text="dough" />
       </ul>
       <ul>
-        <li v-for="diameter in diameters" 
-        :key="diameter"
-        :class="{'active': diameter === selectedDiameter}"
-        @click="selectedDiameter = diameter"
-        >{{ diameter }} см.</li>
+        <li v-for="diameter in diameters" :key="diameter" :class="{ 'active': diameter === selectedDiameter }"
+          @click="selectedDiameter = diameter" v-text="`${diameter} см.`" />
       </ul>
     </div>
     <div class="pizza-block__bottom" @click="addToCart()">
@@ -63,13 +70,11 @@ export default {
             fill="white" />
         </svg>
         <span>Добавить</span>
-        <i>2</i>
+        <i v-if="count">{{ count }}</i>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
 
