@@ -11,27 +11,27 @@ export default {
       {
         id: 1,
         title: 'Margherita',
-        price: 9.99,
+        price: 210,
       },
       {
         id: 2,
         title: 'Margherita',
-        price: 9.99,
+        price: 300,
       },
       {
         id: 3,
         title: 'Margherita',
-        price: 9.99,
+        price:400,
       },
       {
         id: 4,
         title: 'Margherita',
-        price: 9.99,
+        price: 450,
       },
       {
         id: 5,
         title: 'Margherita',
-        price: 9.99,
+        price: 500,
       },
     ])
     return {
