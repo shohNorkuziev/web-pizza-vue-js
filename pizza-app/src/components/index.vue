@@ -11,7 +11,7 @@ export default {
       {
         id: 1,
         title: 'Margherita',
-        price: 210,
+        price: 200,
       },
       {
         id: 2,
