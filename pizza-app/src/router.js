@@ -12,6 +12,8 @@ export default createRouter({
     routes:[
         {path:'/Index', component: Index, alias:'/'},
         {path:'/Basket', component: Basket },
+        {path:'/SignIn', component:SignInVue},
+        {path:'/SignUp', component:SignUpVue}
     ],
 
 })
