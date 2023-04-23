@@ -23,7 +23,7 @@ export default {
 
     const addToCart = () => {
       addPizza({
-        id: props.id,
+        id: props.ID,
         diameter: selectedDiameter.value,
         dough: selectedDough.value,
         price: props.price
@@ -31,7 +31,7 @@ export default {
       console.log(items)
     };
 
-    const count = computed(() => getCountForId(props.id))
+    const count = computed(() => getCountForId(props.ID))
 
     return {
       selectedDiameter,
