@@ -16,22 +16,22 @@ export default {
     }
   },
   setup(props) {
-    const { addPizza, getCountForId, items } = useCart()
+    const { addPizza, getCountForId } = useCart(props.id)
 
     const selectedDiameter = ref(26)
     const selectedDough = ref('тонкое')
 
     const addToCart = () => {
       addPizza({
-        id: props.ID,
+        id: props.id,
         diameter: selectedDiameter.value,
         dough: selectedDough.value,
         price: props.price
       })
-      console.log(items)
+      console.log(getCountForId(props.is))
     };
 
-    const count = computed(() => getCountForId(props.ID))
+    const count = computed(() => getCountForId(props.id))
 
     return {
       selectedDiameter,

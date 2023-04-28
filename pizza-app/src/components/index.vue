@@ -72,7 +72,7 @@ export default {
       </div>
       <h2 class="content__title">Все пиццы</h2>
       <div class="content__items">
-        <Pizza v-for="pizza in pizzas" :key="pizza.ID" :id="pizza.ID" :price="pizza.price" :title="pizza.title" />
+        <Pizza v-for="pizza in pizzas" :key="pizza.id" :id="pizza.id" :price="pizza.price" :title="pizza.title" />
       </div>
     </div>
   </div>
