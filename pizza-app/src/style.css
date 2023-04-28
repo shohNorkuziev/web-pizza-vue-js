@@ -36,18 +36,18 @@
   list-style: none;
   outline: none;
   font-family: 'Proxima Nova', Roboto, system-ui, Tahoma, sans-serif;
-  -webkit-box-sizing: border-box;
+ 
   box-sizing: border-box;
 }
 
 html {
   -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+
 }
 
 body {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+
+
   color: #232323;
 }
 
@@ -83,20 +83,17 @@ a {
 }
 
 .header .container {
-  display: -webkit-box;
-  display: -ms-flexbox;
+
   display: flex;
-  -webkit-box-align: center;
+
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
+
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
 .header__logo {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -124,13 +121,8 @@ a {
   min-width: 100px;
   text-align: center;
   cursor: pointer;
-  -webkit-transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
   transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
   border: 1px solid transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -143,7 +135,6 @@ a {
 .button span,
 .button path,
 .button svg {
-  -webkit-transition: all .15s ease-in-out;
   transition: all .15s ease-in-out;
 }
 
@@ -153,18 +144,12 @@ a {
 
 .button:active {
   background-color: #de4101;
-  -webkit-transform: translateY(1px);
   transform: translateY(1px);
 }
 
 .button--circle {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
   width: 32px;
@@ -253,11 +238,8 @@ a {
 }
 
 .button--cart {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   line-height: 23px;
   padding: 12px 25px;
@@ -468,14 +450,10 @@ body {
 }
 
 .content__items {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+display: grid;
+grid-template-columns: repeat(auto-fit,minmax(255px,min-content));
+justify-content: start;
+gap: 25px;
 }
 
 .content__top {
