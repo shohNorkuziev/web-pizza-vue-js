@@ -28,7 +28,7 @@ export default {
         dough: selectedDough.value,
         price: props.price
       })
-      console.log(getCountForId(props.is))
+      console.log(getCountForId(props.id))
     };
 
     const count = computed(() => getCountForId(props.id))
@@ -76,5 +76,10 @@ export default {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+  .pizza{
+  display: grid;
+  justify-content: center;
+}
+</style>
 
