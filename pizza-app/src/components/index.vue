@@ -14,8 +14,6 @@ export default {
       axios.get('http://localhost/connect-db/connect.php')
         .then(response => { 
           pizzas.value = response.data;
-    
-          console.log(pizzas)
          })
         .catch(error => { console.log(error) })
     }
