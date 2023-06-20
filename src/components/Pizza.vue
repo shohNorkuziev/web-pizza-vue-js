@@ -7,7 +7,6 @@ export default {
     id: Number,
     title: String,
     price: Number,
-
   },
   data() {
     return {
@@ -28,7 +27,6 @@ export default {
         dough: selectedDough.value,
         price: props.price
       })
-      console.log(getCountForId(props.id))
     };
 
     const count = computed(() => getCountForId(props.id))
@@ -38,7 +36,6 @@ export default {
       selectedDough,
       addToCart,
       count,
-
     }
   }
 }

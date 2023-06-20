@@ -1,11 +1,16 @@
 <script>
+import useCart from '../composables/useCART';
 import AddedPizza from './AddedPizza.vue'
 export default{
     components:{AddedPizza},
-data (){
-    return{
-        
-    }
+    setup() {
+
+const { count, price } = useCart();
+
+return {
+  count,
+  price,
+}
 }
 }
 </script>
@@ -46,11 +51,11 @@ data (){
                         </div>
                     </div>
                     <!-- // Added pizza -->
-                    <AddedPizza></AddedPizza>
+                    <AddedPizza v-for="pizza in pizzas" :key="pizza.id" :id="pizza.id" :price="pizza.price" :title="pizza.title"></AddedPizza>
                     <div class="cart__bottom">
                         <div class="cart__bottom-details">
-                            <span> Всего пицц: <b>9 шт.</b> </span>
-                            <span> Сумма заказа: <b>900 ₽</b> </span>
+                            <span> Всего пицц: <b>{{ count }} шт.</b> </span>
+                            <span> Сумма заказа: <b>{{ price }} ₽</b> </span>
                         </div>
                         <div class="cart__bottom-buttons">
                             <router-link to="/Index" class="button button--outline button--add go-back-btn">

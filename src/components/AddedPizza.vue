@@ -1,6 +1,14 @@
 <script>
+import useCart from '../composables/useCART';
 export default {
 
+setup(){
+    const { items } = useCart();
+    return{
+        items,
+    },
+    console.log(items)
+},
 }
 </script>
 
