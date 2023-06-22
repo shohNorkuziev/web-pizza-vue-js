@@ -6,11 +6,12 @@ export default {
     components: { AddedPizza },
 
     setup() {
-        const { count, price, items } = useCart();
+        const { count, price, items, clearCart } = useCart();
         return {
             count,
             price,
             items,
+            clearCart,
         }
     },
 }
@@ -23,13 +24,13 @@ export default {
                     <div class="exist_basket" v-if="items.length === 0">
                             <img src="../assets/img/basket_dog.svg" alt="dog" width="350" />
                             <h2>Пусто!</h2>
-                            <p>Вы еще не выбрали пицу, веберите пиццу пожалуйста</p>
+                            <p>Вы еще не выбрали пицу, выберите пиццу пожалуйста</p>
                             <router-link to="/" class="button button--outline button--add go-back-btn">
-                                <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
+                                <!-- <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" stroke-width="1.5"
                                         stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
+                                </svg> -->
 
                                 <span>Вернуться назад</span>
                             </router-link>
@@ -50,7 +51,7 @@ export default {
                                     stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                             Корзина</h2>
-                        <div class="cart__clear">
+                        <div class="cart__clear" @click="clearCart">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.5 5H4.16667H17.5" stroke="#B6B6B6" stroke-width="1.2" stroke-linecap="round"
                                     stroke-linejoin="round" />
