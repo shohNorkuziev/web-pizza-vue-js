@@ -25,7 +25,8 @@ export default {
         id: props.id,
         diameter: selectedDiameter.value,
         dough: selectedDough.value,
-        price: props.price
+        price: props.price,
+        title: props.title
       })
     };
 

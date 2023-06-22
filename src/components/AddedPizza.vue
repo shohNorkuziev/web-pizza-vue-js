@@ -1,18 +1,30 @@
 <script>
-import useCart from '../composables/useCART';
 export default {
 
-setup(){
-    const { items } = useCart();
-    return{
-        items,
+props:{
+
+    id:{
+        type:Number
     },
-    console.log(items)
-},
+    title:{
+        type:String
+    },
+    price: {
+        type:Number
+    },
+    diameter: {
+        type:Number
+    },
+    dough:{
+        type:String
+    }
+}
+
 }
 </script>
 
 <template>
+    
     <div class="content__items_basket">
         <div class="cart__item">
             <div class="cart__item-img">
@@ -21,8 +33,8 @@ setup(){
                     alt="Pizza" />
             </div>
             <div class="cart__item-info">
-                <h3>Сырный цыпленок</h3>
-                <p>тонкое тесто, 26 см.</p>
+                <h3>{{ this.title }}</h3>
+                <p>{{ this.dough }}, {{ this.diameter }} см.</p>
             </div>
             <div class="cart__item-count">
                 <div @click="this.countProduct--" class="button button--outline button--circle cart__item-count-minus">
@@ -48,7 +60,7 @@ setup(){
                 </div>
             </div>
             <div class="cart__item-price">
-                <b>770 ₽</b>
+                <b>{{ this.price }} ₽</b>
             </div>
             <div class="cart__item-remove">
                 <div class="button button--outline button--circle">

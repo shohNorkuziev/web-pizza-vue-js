@@ -11,7 +11,7 @@ export default {
     const pizzas = ref([])
 
     const fetchData = () => {
-      axios.get('http://localhost/connect-db/connect.php')
+      axios.get('http://localhost/pizza-app/includes/connect.php')
         .then(response => { 
           pizzas.value = response.data;
          })

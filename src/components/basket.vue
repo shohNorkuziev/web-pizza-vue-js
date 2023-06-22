@@ -1,17 +1,18 @@
 <script>
+import { ref } from 'vue';
 import useCart from '../composables/useCART';
 import AddedPizza from './AddedPizza.vue'
-export default{
-    components:{AddedPizza},
+export default {
+    components: { AddedPizza },
+
     setup() {
-
-const { count, price } = useCart();
-
-return {
-  count,
-  price,
-}
-}
+        const { count, price, items } = useCart();
+        return {
+            count,
+            price,
+            items,
+        }
+    },
 }
 </script>
 
@@ -19,8 +20,23 @@ return {
     <div class="wrapper">
         <div class="content">
             <div class="container container--cart">
-                <div class="cart">
-                    <div class="cart__top">
+                    <div class="exist_basket" v-if="items.length === 0">
+                            <img src="../assets/img/basket_dog.svg" alt="dog" width="350" />
+                            <h2>Пусто!</h2>
+                            <p>Вы еще не выбрали пицу, веберите пиццу пожалуйста</p>
+                            <router-link to="/" class="button button--outline button--add go-back-btn">
+                                <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                                <span>Вернуться назад</span>
+                            </router-link>
+                        </div>
+                <div v-else class="cart">
+                  
+                    <div  class="cart__top">
                         <h2 class="content__title"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -51,14 +67,16 @@ return {
                         </div>
                     </div>
                     <!-- // Added pizza -->
-                    <AddedPizza v-for="pizza in pizzas" :key="pizza.id" :id="pizza.id" :price="pizza.price" :title="pizza.title"></AddedPizza>
+
+                    <AddedPizza v-for="item in items" :key="item.id" :id="item.id" :price="item.price" :title="item.title"
+                        :dough="item.dough" :diameter="item.diameter"></AddedPizza>
                     <div class="cart__bottom">
                         <div class="cart__bottom-details">
                             <span> Всего пицц: <b>{{ count }} шт.</b> </span>
                             <span> Сумма заказа: <b>{{ price }} ₽</b> </span>
                         </div>
                         <div class="cart__bottom-buttons">
-                            <router-link to="/Index" class="button button--outline button--add go-back-btn">
+                            <router-link to="/" class="button button--outline button--add go-back-btn">
                                 <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" stroke-width="1.5"
@@ -67,6 +85,7 @@ return {
 
                                 <span>Вернуться назад</span>
                             </router-link>
+
                             <div class="button pay-btn">
                                 <span>Оплатить сейчас</span>
                             </div>
@@ -79,7 +98,14 @@ return {
 </template>
 
 <style scoped>
-.content__items_basket{
+.content__items_basket {
     justify-content: space-between;
 }
+.exist_basket{
+    margin: 0 auto;
+    display: grid;
+    justify-items: center;
+    gap: 20px;
+}
+
 </style>
