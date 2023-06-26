@@ -1,6 +1,13 @@
 <script>
+import useCart from '../composables/useCART.js';
 export default {
 
+setup(){
+    const {removePizza} = useCart()
+    return{
+        removePizza
+    }
+},
 props:{
 
     id:{
@@ -17,7 +24,7 @@ props:{
     },
     dough:{
         type:String
-    }
+    },
 }
 
 }
@@ -37,7 +44,7 @@ props:{
                 <p>{{ this.dough }}, {{ this.diameter }} см.</p>
             </div>
             <div class="cart__item-count">
-                <div @click="this.countProduct--" class="button button--outline button--circle cart__item-count-minus">
+                <div class="button button--outline button--circle cart__item-count-minus">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
@@ -47,7 +54,7 @@ props:{
                             fill="#EB5A1E" />
                     </svg>
                 </div>
-                <b :key="id"></b>
+                <b></b>
                 <div class="button button--outline button--circle cart__item-count-plus">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -63,7 +70,7 @@ props:{
                 <b>{{ this.price }} ₽</b>
             </div>
             <div class="cart__item-remove">
-                <div class="button button--outline button--circle" >
+                <div @click="removePizza(id)" class="button button--outline button--circle" >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"

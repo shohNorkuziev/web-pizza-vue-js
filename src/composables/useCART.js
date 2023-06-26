@@ -21,6 +21,15 @@ const items = ref([]);
   const clearCart = () =>{
     items.value.splice(0)
   }
+  //Удаление пиццы по id
+  const removePizza=(id)=>{
+    const index = items.value.findIndex((item)=>item.id ==id);
+    console.log(index)
+    if (index !==-1){
+      items.value.splice(index,1)
+      console.log(2)
+    }
+  }
    // возвращаем объект с функциями и вычисляемыми свойствами
   return {
     addPizza,
@@ -29,5 +38,6 @@ const items = ref([]);
     price,
     items,
     clearCart,
+    removePizza,
   };
 }

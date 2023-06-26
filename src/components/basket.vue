@@ -69,7 +69,7 @@ export default {
                     </div>
                     <!-- // Added pizza -->
 
-                    <AddedPizza v-for="item in items" :key="item.id" :id="item.id" :price="item.price" :title="item.title"
+                    <AddedPizza v-for="item in items"  :key="item.id" :id="item.id" :price="item.price" :title="item.title"
                         :dough="item.dough" :diameter="item.diameter"></AddedPizza>
                     <div class="cart__bottom">
                         <div class="cart__bottom-details">
