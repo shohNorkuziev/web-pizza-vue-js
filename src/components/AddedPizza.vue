@@ -3,11 +3,12 @@ import useCart from '../composables/useCART.js';
 export default {
 
 setup(){
-    const {removePizza, items, getTotalPrice } = useCart()
+    const {removePizza, items, getTotalPrice, getPizzaCount } = useCart()
     return{
         removePizza,
         items,
-        getTotalPrice
+        getTotalPrice,
+        getPizzaCount
     }
 },
 props:{
@@ -29,10 +30,6 @@ props:{
     },
 },
 methods: {
-  getPizzaCount(id, diameter ,dough) {
-    const pizza = this.items.find(item => item.id === id && item.diameter === diameter && item.dough === dough);
-    return pizza ? pizza.quantity : 0;
-  },
   increasePizzaCount(id, diameter ,dough) {
     // Найти пиццу в массиве items и увеличить ее количество
     const pizza = this.items.find(item => item.id === id && item.diameter === diameter && item.dough === dough);

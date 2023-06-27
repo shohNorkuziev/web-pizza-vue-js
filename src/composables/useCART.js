@@ -1,15 +1,14 @@
 import { ref } from "vue";
- // создаем ссылку на пустой массив
+
 const items = ref([]);
  export default function useCart() {
-  // функция добавления пиццы в корзину
   const addPizza = (properties) => {
     const existingPizza = items.value.find(item => item.id === properties.id && item.diameter === properties.diameter && item.dough === properties.dough);
   
     if (existingPizza) {
-      existingPizza.quantity++; // Увеличиваем количество пиццы
+      existingPizza.quantity++;
     } else {
-      items.value.push({ ...properties, quantity: 1 }); // Добавляем новую пиццу с начальным количеством 1
+      items.value.push({ ...properties, quantity: 1 });
     }
   };
 
@@ -23,6 +22,11 @@ const items = ref([]);
       0
     );
   };
+
+  const   getPizzaCount =(id, diameter ,dough) => {
+    const pizza = items.value.find(item => item.id === id && item.diameter === diameter && item.dough === dough);
+    return pizza ? pizza.quantity : 0;
+  }
   const clearCart = () =>{
     items.value.splice(0)
   }
@@ -40,6 +44,7 @@ const items = ref([]);
     clearCart,
     removePizza,
     getTotalCount,
-    getTotalPrice
+    getTotalPrice,
+    getPizzaCount
   };
 }
