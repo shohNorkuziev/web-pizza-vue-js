@@ -1,5 +1,5 @@
 <script>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import useCart from '../composables/useCART'
 export default {
 
@@ -15,7 +15,7 @@ export default {
     }
   },
   setup(props) {
-    const { addPizza, getCountForId } = useCart(props.id)
+    const { addPizza } = useCart(props.id)
 
     const selectedDiameter = ref(26)
     const selectedDough = ref('тонкое')
@@ -26,17 +26,14 @@ export default {
         diameter: selectedDiameter.value,
         dough: selectedDough.value,
         price: props.price,
-        title: props.title
+        title: props.title,
       })
     };
-
-    const count = computed(() => getCountForId(props.id))
 
     return {
       selectedDiameter,
       selectedDough,
       addToCart,
-      count,
     }
   }
 }
@@ -68,7 +65,7 @@ export default {
             fill="white" />
         </svg>
         <span>Добавить</span>
-        <i v-if="count">{{ count }}</i>
+        <!-- <i v-if="count">{{ count }}</i> -->
       </div>
     </div>
   </div>

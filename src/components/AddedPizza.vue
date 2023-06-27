@@ -3,9 +3,11 @@ import useCart from '../composables/useCART.js';
 export default {
 
 setup(){
-    const {removePizza} = useCart()
+    const {removePizza, items, getTotalPrice } = useCart()
     return{
-        removePizza
+        removePizza,
+        items,
+        getTotalPrice
     }
 },
 props:{
@@ -24,6 +26,41 @@ props:{
     },
     dough:{
         type:String
+    },
+},
+methods: {
+  getPizzaCount(id, diameter ,dough) {
+    const pizza = this.items.find(item => item.id === id && item.diameter === diameter && item.dough === dough);
+    return pizza ? pizza.quantity : 0;
+  },
+  increasePizzaCount(id, diameter ,dough) {
+    // Найти пиццу в массиве items и увеличить ее количество
+    const pizza = this.items.find(item => item.id === id && item.diameter === diameter && item.dough === dough);
+    if (pizza) {
+      pizza.quantity++;
+    }
+  },
+  decreasePizzaCount(id, diameter ,dough) {
+    // Найти пиццу в массиве items и уменьшить ее количество
+    const pizza = this.items.find(item => item.id === id && item.diameter === diameter && item.dough === dough);
+    if (pizza && pizza.quantity > 1) {
+      pizza.quantity--;
+    }
+    else{
+        for(let i=0;i<this.items.length;i++){
+            if(this.items[i].id==id && this.items[i].diameter==diameter && this.items[i].dough==dough){
+                this.items.splice(i, 1)
+                break
+            }
+        }            
+    }
+  },
+  getprice(id, diameter ,dough){
+    for(let i=0;i<this.items.length;i++){
+            if(this.items[i].id==id && this.items[i].diameter==diameter && this.items[i].dough==dough){
+                return this.price * this.items[i].quantity;
+            }
+        } 
     },
 }
 
@@ -44,7 +81,7 @@ props:{
                 <p>{{ this.dough }}, {{ this.diameter }} см.</p>
             </div>
             <div class="cart__item-count">
-                <div class="button button--outline button--circle cart__item-count-minus">
+                <div class="button button--outline button--circle cart__item-count-minus" @click="decreasePizzaCount(id, diameter ,dough)">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
@@ -54,8 +91,8 @@ props:{
                             fill="#EB5A1E" />
                     </svg>
                 </div>
-                <b></b>
-                <div class="button button--outline button--circle cart__item-count-plus">
+                <b>{{ getPizzaCount(id, diameter ,dough) }}</b>
+                <div class="button button--outline button--circle cart__item-count-plus" @click="increasePizzaCount(id, diameter ,dough)">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
@@ -67,10 +104,10 @@ props:{
                 </div>
             </div>
             <div class="cart__item-price">
-                <b>{{ this.price }} ₽</b>
+                <b>{{getprice(id, diameter ,dough)}} ₽</b>
             </div>
             <div class="cart__item-remove">
-                <div @click="removePizza(id)" class="button button--outline button--circle" >
+                <div @click="removePizza(id, diameter ,dough)" class="button button--outline button--circle"  title="удалить пиццу">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
@@ -85,5 +122,6 @@ props:{
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
 

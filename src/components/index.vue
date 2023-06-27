@@ -10,21 +10,19 @@ export default {
 
     const pizzas = ref([])
 
-    const fetchData = () => {
       axios.get('http://localhost/pizza-app/includes/connect.php')
         .then(response => { 
           pizzas.value = response.data;
          })
         .catch(error => { console.log(error) })
-    }
 
     return {
       pizzas,
-      fetchData
+ 
     }
   },
   mounted() {
-    this.fetchData()
+    // this.fetchData()
     // setTimeout(() => {
     //   this.fetchData();
     //   setInterval(this.fetchData, 3000)

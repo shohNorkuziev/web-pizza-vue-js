@@ -1,17 +1,16 @@
 <script>
-import { ref } from 'vue';
 import useCart from '../composables/useCART';
 import AddedPizza from './AddedPizza.vue'
 export default {
     components: { AddedPizza },
 
     setup() {
-        const { count, price, items, clearCart } = useCart();
+        const { getTotalCount, getTotalPrice, items, clearCart } = useCart();
         return {
-            count,
-            price,
             items,
             clearCart,
+            getTotalCount,
+            getTotalPrice,
         }
     },
 }
@@ -73,8 +72,8 @@ export default {
                         :dough="item.dough" :diameter="item.diameter"></AddedPizza>
                     <div class="cart__bottom">
                         <div class="cart__bottom-details">
-                            <span> Всего пицц: <b>{{ count }} шт.</b> </span>
-                            <span> Сумма заказа: <b>{{ price }} ₽</b> </span>
+                            <span> Всего пицц: <b>{{ getTotalCount() }} шт.</b> </span>
+                            <span> Сумма заказа: <b>{{ getTotalPrice() }} ₽</b> </span>
                         </div>
                         <div class="cart__bottom-buttons">
                             <router-link to="/" class="button button--outline button--add go-back-btn">

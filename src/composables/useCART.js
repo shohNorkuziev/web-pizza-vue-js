@@ -1,43 +1,45 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
  // создаем ссылку на пустой массив
 const items = ref([]);
  export default function useCart() {
   // функция добавления пиццы в корзину
   const addPizza = (properties) => {
-    items.value.push(properties); // добавляем свойства в массив items
-  };
-   // функция подсчета количества пицц с определенным id
-  const getCountForId = (id) => {
-    return items.value.filter((item) => item.id === id).length; // фильтруем массив по id и возвращаем длину полученного массива
+    const existingPizza = items.value.find(item => item.id === properties.id && item.diameter === properties.diameter && item.dough === properties.dough);
+  
+    if (existingPizza) {
+      existingPizza.quantity++; // Увеличиваем количество пиццы
+    } else {
+      items.value.push({ ...properties, quantity: 1 }); // Добавляем новую пиццу с начальным количеством 1
+    }
   };
 
-   // вычисляемое свойство, которое возвращает количество пицц в корзине
-  const count = computed(() => items.value.length);
-   // вычисляемое свойство, которое возвращает общую стоимость пицц в корзине
-  const price = computed(() =>
-    items.value.reduce((total, item) => total + item.price, 0)
-  );
-  // Очистка корзины
+  const getTotalCount = () => {
+    return items.value.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const getTotalPrice = () => {
+    return items.value.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  };
   const clearCart = () =>{
     items.value.splice(0)
   }
-  //Удаление пиццы по id
-  const removePizza=(id)=>{
-    const index = items.value.findIndex((item)=>item.id ==id);
-    console.log(index)
+
+  const removePizza=(id, diameter , dough)=>{
+    const index = items.value.findIndex(item => item.id === id && item.diameter === diameter && item.dough === dough);
     if (index !==-1){
       items.value.splice(index,1)
-      console.log(2)
     }
   }
-   // возвращаем объект с функциями и вычисляемыми свойствами
+
   return {
     addPizza,
-    getCountForId,
-    count,
-    price,
     items,
     clearCart,
     removePizza,
+    getTotalCount,
+    getTotalPrice
   };
 }
