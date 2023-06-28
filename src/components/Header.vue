@@ -17,12 +17,20 @@ export default {
 <template>
   <div class="header">
     <div class="container">
-      <div class="header__logo">
-        <img width="38" src="../assets/img/pizza-logo.svg" alt="Pizza logo" />
-        <div>
-          <h1>VUE Pizza</h1>
-          <p>самая вкусная пицца во вселенной</p>
+      <router-link to="/">
+        <div class="header__logo">
+          <img width="38" src="../assets/img/pizza-logo.svg" alt="Pizza logo" />
+          <div>
+            <h1>VUE Pizza</h1>
+            <p>самая вкусная пицца во вселенной</p>
+          </div>
         </div>
+      </router-link>
+      <div class="register">
+        
+      </div>
+      <div class="authoriz">
+
       </div>
       <div class="header__cart">
         <router-link to="/Basket" class="button button--cart">

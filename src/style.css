@@ -288,6 +288,9 @@ a {
 
 .categories ul li.active {
   background-color: #282828;
+}
+
+.categories ul li.active a {
   color: #fff;
 }
 
