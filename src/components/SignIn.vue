@@ -5,11 +5,11 @@
        <form>
          <div class="form-group">
            <label for="email">Почта</label>
-           <input type="email" id="email" v-model="email" required>
+           <input type="email" id="email" v-model="email" name="email" required>
          </div>
          <div class="form-group">
            <label for="password">Пароль</label>
-           <input type="password" id="password" v-model="password" required>
+           <input type="password" id="password" v-model="password" name="password" required>
          </div>
          <button class="btn" @click="signIn">Войти</button>
        </form>
@@ -21,6 +21,7 @@
  </template>
  
  <script>
+ import axios from 'axios';
  export default {
    data() {
      return {
@@ -29,15 +30,39 @@
      };
    },
    methods: {
-     signIn() {
-       // Реализуйте здесь логику для авторизации пользователя
-       // Отправьте данные на сервер для проверки и выполнения авторизации
-     },
+    signIn() {
+  const userData = {
+    email: this.email,
+    password: this.password
+  };
+
+  try {
+    axios.post('http://localhost/pizza-app/includes/authoriz.php', userData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
    },
  };
  </script>
  
  <style scoped>
+ h2{
+  margin: 10px;
+ }
  body {
    background-color: #ffdf8c;
    margin: 0;

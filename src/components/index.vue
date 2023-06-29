@@ -9,7 +9,7 @@ export default {
   setup() {
     const pizzas = ref([])
 
-    axios.get('http://localhost/pizza-app/includes/connect.php')
+    axios.get('http://localhost/pizza-app/includes/Pizza.php')
       .then(response => { 
         pizzas.value = response.data;
       })
@@ -45,8 +45,8 @@ export default {
       <div class="content__top">
         <div class="categories">
           <ul>
-            <li class="active"><a href="#Pizza" @click="handleAnchorClick($event, 'Pizza')">Пицца</a></li>
-            <li><a href="#Drinks" @click="handleAnchorClick($event, 'Drinks')">Напитки</a></li>
+            <li @click="handleAnchorClick($event, 'Pizza')" class="active"><a href="#Pizza" >Пицца</a></li>
+            <li @click="handleAnchorClick($event, 'Drinks')"><a href="#Drinks" >Напитки</a></li>
           </ul>
         </div>
       </div>
