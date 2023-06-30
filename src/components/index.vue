@@ -45,7 +45,7 @@ export default {
       <div class="content__top">
         <div class="categories">
           <ul>
-            <li @click="handleAnchorClick($event, 'Pizza')" class="active"><a href="#Pizza" >Пицца</a></li>
+            <li @click="handleAnchorClick($event, 'Pizza')"><a href="#Pizza" >Пицца</a></li>
             <li @click="handleAnchorClick($event, 'Drinks')"><a href="#Drinks" >Напитки</a></li>
           </ul>
         </div>

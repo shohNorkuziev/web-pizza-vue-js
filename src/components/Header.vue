@@ -10,7 +10,16 @@ export default {
       getTotalCount,
       getTotalPrice,
     }
-  }
+  },
+  computed:{
+        componentNumber() {
+        switch (this.$route.name) {
+          case 'SignInVue': return '1'
+          case 'SignUpVue': return '1'
+          default: return ''
+        }
+      }
+    },
 }
 </script>
 
@@ -27,12 +36,10 @@ export default {
         </div>
       </router-link>
       <div class="register">
-        
-      </div>
-      <div class="authoriz">
 
       </div>
-      <div class="header__cart">
+      <div class="navbar" v-if="componentNumber!=1">
+        <div class="header__cart">
         <router-link to="/Basket" class="button button--cart">
           <span>{{ getTotalPrice() }} ₽</span>
           <div class="button__delimiter"></div>
@@ -50,8 +57,22 @@ export default {
           <span>{{ getTotalCount() }}</span>
         </router-link>
       </div>
+      <div class="authoriz">
+        <router-link to="/SignIn" class="button button--cart">
+          <span>Войти</span>
+        </router-link>
+      </div>
+      </div>
+      
+
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.navbar{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+</style>

@@ -1,8 +1,55 @@
+<script>
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+  signIn() {
+ const userData = {
+   email: this.email,
+   password: this.password
+ };
+
+ axios.post('http://localhost/pizza-app/includes/authoriz.php', userData, {
+  timeout: 50000,
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+})
+  .then(response => {
+    console.log(response.data);
+    console.log('Авторизован');
+  })
+  .catch(error => {
+    if (error.response) {
+      // Ошибка с полученным ответом от сервера
+      console.error('Ошибка ответа от сервера:', error.response.data);
+    } else if (error.request) {
+      // Ошибка без полученного ответа от сервера
+      console.error('Ошибка запроса:', error.request);
+    } else {
+      // Ошибка при настройке запроса
+      console.error('Ошибка настройки запроса:', error.message);
+    }
+  });
+
+}
+
+
+  },
+};
+</script>
+
 <template>
    <div class="signin">
      <div class="signin-container">
        <h2>Авторизация</h2>
-       <form>
+       <form @click.prevent>
          <div class="form-group">
            <label for="email">Почта</label>
            <input type="email" id="email" v-model="email" name="email" required>
@@ -11,7 +58,10 @@
            <label for="password">Пароль</label>
            <input type="password" id="password" v-model="password" name="password" required>
          </div>
-         <button class="btn" @click="signIn">Войти</button>
+         <button class="btn" @click.stop.prevent="signIn">Войти</button>
+         <div class="newUser">
+            Новичок в Vue pizza? <router-link to="/SignUp" class="wordRegister">Зарегистрироваться</router-link>
+         </div>
        </form>
      </div>
      <div>
@@ -19,45 +69,6 @@
    </div>
    </div>
  </template>
- 
- <script>
- import axios from 'axios';
- export default {
-   data() {
-     return {
-       email: '',
-       password: '',
-     };
-   },
-   methods: {
-    signIn() {
-  const userData = {
-    email: this.email,
-    password: this.password
-  };
-
-  try {
-    axios.post('http://localhost/pizza-app/includes/authoriz.php', userData, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-
-   },
- };
- </script>
  
  <style scoped>
  h2{
@@ -99,7 +110,8 @@
  }
  
  input[type="email"],
- input[type="password"] {
+ input[type="password"],
+ button {
    width: 100%;
    padding: 8px;
    border: 1px solid #ccc;
@@ -113,10 +125,16 @@
    border: none;
    border-radius: 4px;
    cursor: pointer;
+   font-weight: bold;
+   font-size: 15px;
+   width: 100%;
  }
  
  .btn:hover {
    background-color: #ff833d;
+ }
+ .wordRegister{
+  color: blue;
  }
  </style>
  
