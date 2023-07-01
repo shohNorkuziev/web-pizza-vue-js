@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import {useAuthStore} from '../store/auth.js'
 
 export default {
   data() {
@@ -27,27 +28,32 @@ export default {
         passwordTwo: this.passwordTwo
       };
 
-      try {
         axios.post('http://localhost/pizza-app/includes/register.php', userData, {
-   timeout: 50000,
-   headers: {
-     'Content-Type': 'application/json',
-     'Content-Type': 'application/x-www-form-urlencoded'
-   }
- })
-        
+          timeout: 50000,
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
           .then(response => {
-            
             console.log(response.data);
+            if (response.data.success) {
+              const authStore = useAuthStore()
+              authStore.setRole(response.data.role)
+              authStore.setName(response.data.name)
+              authStore.setSuccess(response.data.success)
+              console.log('Добро пожаловать на сайт'+' '+ response.data.name)
+            }
+            else{
+              console.log('Ошибка во время авторизации')
+            }
             // Дополнительная логика после успешной регистрации
           })
           .catch(error => {
             console.error(error);
             // Дополнительная обработка ошибок регистрации
           });
-      } catch (error) {
-        console.error(error);
-      }
+      
     }
   }
 };
@@ -55,6 +61,9 @@ export default {
 
 <template>
   <div class="signin">
+    <!-- <div v-if="useAuthStore.state.success">
+      Регистрация прошла успешна {{ useAuthStore.state.name }}
+    </div> -->
     <div class="signin-container">
       <h2>Регистрация</h2>
       <form @click.prevent>
@@ -91,75 +100,79 @@ export default {
   </div>
 </template>
 
-  <style scoped>
-  .error-message {
+<style scoped>
+.error-message {
   color: red;
   font-size: 14px;
   margin-top: 5px;
 }
-  h2{
-    margin: 10px;
-  }
-  body {
-    background-color: #ffdf8c;
-    margin: 0;
-  }
-  
-  .logo{
-    width: 400px;
-  }
-  .signin {
-    display: grid;
-    place-items: center;
-    grid-template-columns: 1fr 1fr;
-    width: 800px;
-    margin: 0 auto;
-    height: 75vh;
-    
-  }
-  
-  .signin-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  input[type="email"],
-  input[type="password"],
-  input[type="text"],
-  button {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .btn {
-    font-weight: 700;
-    background-color: #fe5f1e;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn:hover {
-    background-color: #ff833d;
-  }
-  .wordAthoriz{
-    color: blue;
-  }
-  </style>
+
+h2 {
+  margin: 10px;
+}
+
+body {
+  background-color: #ffdf8c;
+  margin: 0;
+}
+
+.logo {
+  width: 400px;
+}
+
+.signin {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr;
+  width: 800px;
+  margin: 0 auto;
+  height: 75vh;
+
+}
+
+.signin-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+button {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  font-weight: 700;
+  background-color: #fe5f1e;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ff833d;
+}
+
+.wordAthoriz {
+  color: blue;
+}
+</style>
   

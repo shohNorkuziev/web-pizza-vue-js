@@ -23,7 +23,6 @@ export default {
 })
   .then(response => {
     console.log(response.data);
-    console.log('Авторизован');
   })
   .catch(error => {
     if (error.response) {

@@ -15,7 +15,7 @@ $passwordTwo = $_POST['passwordTwo'];
 if ($password !== $passwordTwo) {
   $response = [
     'success' => false,
-    'message' => 'Пароль не совпадает'
+    'message' => 'Пароль не совпадает',
   ];
 
   header("Content-Type: application/json");
@@ -55,7 +55,8 @@ if (mysqli_query($conn, $sql)) {
     $response = [
       'success' => true,
       'message' => 'Регистрация прошла успешно',
-      'role' => $roleId
+      'role' => $roleId,
+      'name' => $name
     ];
   } else {
     $response = [
