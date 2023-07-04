@@ -1,0 +1,18 @@
+<mxfile host="app.diagrams.net" modified="2023-03-26T14:33:43.668Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="csJQ7vjba9Ik5dLU1Erw" version="21.1.1" type="device">
+  <diagram name="Page-1" id="7JCGrpVpIMCToPqDrXDi">
+    <mxGraphModel dx="880" dy="484" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="icvYaaa4wcz-UfmaDTFN-1" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+          <mxGeometry x="220" y="30" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="icvYaaa4wcz-UfmaDTFN-2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;" edge="1" source="icvYaaa4wcz-UfmaDTFN-1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="235" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
