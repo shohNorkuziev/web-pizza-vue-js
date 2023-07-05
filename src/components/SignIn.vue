@@ -1,12 +1,14 @@
 <script>
 import axios from 'axios';
 import router from '../router.js';
+import { useStore } from '../store/store';
 
 export default {
   data() {
     return {
       email: '',
       password: '',
+      errorMessage:'',
     };
   },
   methods: {
@@ -25,7 +27,18 @@ export default {
       })
         .then(response => {
           console.log(response.data);
-          router.push({name: 'Index'})
+          if(response.data.success){
+            const Store = useStore()
+              Store.setRole(response.data.role)
+              Store.setName(response.data.name)
+              Store.setSuccess(response.data.success)
+              Store.setSurname(response.data.surname)
+              Store.setId(response.data.id)
+              Store.setEmail(response.data.email)
+            router.push({name: 'Index'})
+          }else{
+            this.errorMessage = response.data.message
+          }
         })
         .catch(error => {
           if (error.response) {
@@ -51,6 +64,7 @@ export default {
   <div class="signin">
     <div class="signin-container">
       <h2>Авторизация</h2>
+      <div v-if="errorMessage" class="errorMessage">{{ errorMessage }}</div>
       <form @click.prevent>
         <div class="form-group">
           <label for="email">Почта</label>
@@ -73,6 +87,10 @@ export default {
 </template>
  
 <style scoped>
+.errorMessage{
+  color: red;
+  margin-top: 10px;
+}
 h2 {
   margin: 10px;
 }

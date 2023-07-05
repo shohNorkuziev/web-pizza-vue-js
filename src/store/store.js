@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useRegisterStore = defineStore('registerStore',{
+export const useStore = defineStore('Store',{
     state: ()=> ({
         id: Number,
         role:'',

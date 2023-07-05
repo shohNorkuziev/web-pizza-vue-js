@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import { useRegisterStore } from '../store/register.js'
+import { useStore } from '../store/store.js'
 import router from '../router.js';
 
 export default {
@@ -41,13 +41,13 @@ export default {
             console.log(response.data.userData);
             if (response.data.success) {
               router.push({name: 'Index' })
-              const registerStore = useRegisterStore()
-              registerStore.setRole(response.data.role)
-              registerStore.setName(response.data.name)
-              registerStore.setSuccess(response.data.success)
-              registerStore.setSurname(response.data.userData.surname)
-              registerStore.setId(response.data.userData.id)
-              registerStore.setEmail(response.data.userData.email)
+              const Store = useStore()
+              Store.setRole(response.data.role)
+              Store.setName(response.data.name)
+              Store.setSuccess(response.data.success)
+              Store.setSurname(response.data.userData.surname)
+              Store.setId(response.data.userData.id)
+              Store.setEmail(response.data.userData.email)
               console.log('Добро пожаловать на сайт'+' '+ response.data.name)
             }
             else{
@@ -63,13 +63,10 @@ export default {
     }
   }
 };
-</script>
+</script> 
 
 <template>
   <div class="signin">
-    <!-- <div v-if="useAuthStore.state.success">
-      Регистрация прошла успешна {{ useAuthStore.state.name }}
-    </div> -->
     <div class="signin-container">
       <h2>Регистрация</h2>
       <form @click.prevent>
