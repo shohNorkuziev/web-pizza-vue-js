@@ -4,6 +4,7 @@ require_once('./connect.php');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
+
 // Получение данных из POST-запроса
 $name = $_POST['name'];
 $surname = $_POST['surname'];
@@ -52,11 +53,17 @@ if (mysqli_query($conn, $sql)) {
   // Вставка роли "Администратор сайта" для пользователя в таблицу authorrole
   $sql = "INSERT INTO authorrole (usersid, roleid) VALUES ('$userId', '$roleId')";
   if (mysqli_query($conn, $sql)) {
+    // Выполнение SELECT-запроса для получения данных пользователя
+    $selectSql = "SELECT id, surname, name, email FROM users WHERE id='$userId'";
+    $selectResult = mysqli_query($conn, $selectSql);
+    $userData = mysqli_fetch_assoc($selectResult);
+
     $response = [
       'success' => true,
       'message' => 'Регистрация прошла успешно',
       'role' => $roleId,
-      'name' => $name
+      'name' => $name,
+      'userData' => $userData // Добавляем данные пользователя в ответ
     ];
   } else {
     $response = [

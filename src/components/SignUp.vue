@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
-import {useAuthStore} from '../store/auth.js'
+import { useRegisterStore } from '../store/register.js'
+import router from '../router.js';
 
 export default {
   data() {
@@ -37,11 +38,16 @@ export default {
         })
           .then(response => {
             console.log(response.data);
+            console.log(response.data.userData);
             if (response.data.success) {
-              const authStore = useAuthStore()
-              authStore.setRole(response.data.role)
-              authStore.setName(response.data.name)
-              authStore.setSuccess(response.data.success)
+              router.push({name: 'Index' })
+              const registerStore = useRegisterStore()
+              registerStore.setRole(response.data.role)
+              registerStore.setName(response.data.name)
+              registerStore.setSuccess(response.data.success)
+              registerStore.setSurname(response.data.userData.surname)
+              registerStore.setId(response.data.userData.id)
+              registerStore.setEmail(response.data.userData.email)
               console.log('Добро пожаловать на сайт'+' '+ response.data.name)
             }
             else{
