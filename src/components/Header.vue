@@ -57,7 +57,7 @@ export default {
       </router-link>
       <div class="register">
       </div>
-      <div class="navbar" v-if="componentNumber != 1">
+      <div class="navbar" v-if="componentNumber != 1" :style="{background: showDropdown?'#fe5f1e':''}">
         <div class="header__cart">
           <router-link to="/Basket" class="button button--cart">
             <span>{{ getTotalPrice() }} ₽</span>
@@ -76,15 +76,18 @@ export default {
             <span>{{ getTotalCount() }}</span>
           </router-link>
         </div>
+        <div v-if="showDropdown" class="line">
+
+        </div>
         <div v-if="!loggedIn" class="authoriz">
           <router-link to="/SignIn" class="button button--cart">
             <span>Войти</span>
           </router-link>
         </div>
         <div v-if="loggedIn" class="authoriz">
-          <button class="button button--cart" @click="showDropdown = !showDropdown">
-            <span>Личный кабинет</span>
-          </button>
+          <span class="user_logo" @click="showDropdown = !showDropdown">
+            <img src="../assets/img/user1.png" alt="личный кабинет">
+          </span>
           <div v-if="showDropdown" class="dropdown-menu show">
             <ul>
               <li>
@@ -111,17 +114,22 @@ export default {
 </template>
 
 <style scoped>
+.line{
+  background-color: rgb(255, 255, 255,0.2);
+  width: 1px;
+  margin:12px 0 ;
+}
 .dropdown-menu {
   position: absolute;
-  top: 139px;
-  left: 1080px;
-  width: 150px;
+  top: 49px;
+  right: 10px;
+  width: 230px;
   background-color: #fe5f1e;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 1s ease, transform 1s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
 }
 
@@ -135,6 +143,7 @@ export default {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  border-radius: 5px;
 }
 
 .dropdown-menu li {
@@ -160,5 +169,15 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 15px;
+}
+span img{
+  height: 45px;
+  padding: 5px;
+  width: 50px;
+}
+.authoriz{
+  position: relative;
+  background-color: #fe5f1e;
+  border-radius: 50%; 
 }
 </style>
