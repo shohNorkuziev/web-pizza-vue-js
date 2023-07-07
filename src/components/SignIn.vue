@@ -111,7 +111,6 @@ body {
   width: 800px;
   margin: 0 auto;
   height: 75vh;
-
 }
 
 .signin-container {
