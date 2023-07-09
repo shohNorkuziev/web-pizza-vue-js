@@ -21,20 +21,19 @@ export default {
       axios.post('http://localhost/pizza-app/includes/authoriz.php', userData, {
         timeout: 50000,
         headers: {
-          'Content-Type': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         }
       })
         .then(response => {
           console.log(response.data);
           if(response.data.success){
             const Store = useStore()
-              Store.setRole(response.data.role)
-              Store.setName(response.data.name)
-              Store.setSuccess(response.data.success)
-              Store.setSurname(response.data.surname)
-              Store.setId(response.data.id)
-              Store.setEmail(response.data.email)
+            Store.setRole(response.data.role)
+            Store.setName(response.data.name)
+            Store.setSuccess(response.data.success)
+            Store.setSurname(response.data.surname)
+            Store.setId(response.data.id)
+            Store.setEmail(response.data.email)
             router.push({name: 'Index'})
           }else{
             this.errorMessage = response.data.message
@@ -52,13 +51,11 @@ export default {
             console.error('Ошибка настройки запроса:', error.message);
           }
         });
-
     }
-
-
   },
 };
 </script>
+
 
 <template>
   <div class="signin">
@@ -138,7 +135,6 @@ button {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 .btn {
   background-color: #fe5f1e;
   color: #fff;

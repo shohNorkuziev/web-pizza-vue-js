@@ -5,9 +5,13 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
-$email = $_POST['email'];
-$password = $_POST['password'];
-$hash_password= md5($password);
+$jsonData = file_get_contents('php://input');
+$data = json_decode($jsonData);
+
+$email = $data->email;
+$password = $data->password;
+$hash_password = md5($password);
+
 // Логика авторизации
 $sql = "SELECT u.id, u.surname, u.name, u.email, u.password, ar.roleid 
         FROM users u
@@ -34,7 +38,6 @@ if ($row) {
     'message' => 'Неверная почта или пароль'
   ];
 }
-
 
 header("Content-Type: application/json");
 echo json_encode($response);
