@@ -1,67 +1,72 @@
 <script>
 import useCart from '../composables/useCART.js';
 export default {
-
-setup(){
-    const {removePizza, items, getTotalPrice, getPizzaCount } = useCart()
-    return{
-        removePizza,
-        items,
-        getTotalPrice,
-        getPizzaCount
-    }
-},
-props:{
-
-    id:{
-        type:Number
+  props: {
+    id: {
+      type: Number
     },
-    title:{
-        type:String
+    title: {
+      type: String
     },
     price: {
-        type:Number
+      type: Number
     },
     diameter: {
-        type:Number
+      type: Number
     },
-    dough:{
-        type:String
-    },
-},
-methods: {
-  increasePizzaCount(id, diameter ,dough) {
-    // Найти пиццу в массиве items и увеличить ее количество
-    const pizza = this.items.find(item => item.id === id && item.diameter === diameter && item.dough === dough);
-    if (pizza) {
-      pizza.quantity++;
+    dough: {
+      type: String
     }
   },
-  decreasePizzaCount(id, diameter ,dough) {
-    // Найти пиццу в массиве items и уменьшить ее количество
-    const pizza = this.items.find(item => item.id === id && item.diameter === diameter && item.dough === dough);
-    if (pizza && pizza.quantity > 1) {
-      pizza.quantity--;
-    }
-    else{
-        for(let i=0;i<this.items.length;i++){
-            if(this.items[i].id==id && this.items[i].diameter==diameter && this.items[i].dough==dough){
-                this.items.splice(i, 1)
-                break
-            }
-        }            
-    }
+  setup() {
+    const { removePizza, items, getPizzaCount } = useCart();
+    return {
+      removePizza,
+      items,
+      getPizzaCount
+    };
   },
-  getprice(id, diameter ,dough){
-    for(let i=0;i<this.items.length;i++){
-            if(this.items[i].id==id && this.items[i].diameter==diameter && this.items[i].dough==dough){
-                return this.price * this.items[i].quantity;
-            }
-        } 
+  methods: {
+    increasePizzaCount(id, diameter, dough) {
+      // Найти пиццу в массиве items и увеличить ее количество
+      const pizza = this.items.find(
+        item => item.id === id && item.diameter === diameter && item.dough === dough
+      );
+      if (pizza) {
+        pizza.quantity++;
+      }
     },
-}
-
-}
+    decreasePizzaCount(id, diameter, dough) {
+      // Найти пиццу в массиве items и уменьшить ее количество
+      const pizza = this.items.find(
+        item => item.id === id && item.diameter === diameter && item.dough === dough
+      );
+      if (pizza && pizza.quantity > 1) {
+        pizza.quantity--;
+      } else {
+        for (let i = 0; i < this.items.length; i++) {
+          if (
+            this.items[i].id === id &&
+            this.items[i].diameter === diameter &&
+            this.items[i].dough === dough
+          ) {
+            this.items.splice(i, 1);
+            break;
+          }
+        }
+      }
+    },
+    getprice(id, diameter, dough) {
+      const pizza = this.items.find(
+        item => item.id === id && item.diameter === diameter && item.dough === dough
+      );
+      if (pizza) {
+        return pizza.price * pizza.quantity;
+      }
+      return 0;
+    }
+  }
+};
 </script>
 
 <template>

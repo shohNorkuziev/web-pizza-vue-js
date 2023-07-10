@@ -90,6 +90,19 @@ export default {
           console.error('Ошибка при удалении пиццы:', error);
         });
     };
+    const addPizza = () => {
+      const newPizza = {
+        id: null,
+        title: '',
+        description: '',
+        size: '',
+        price: '',
+        images: '',
+        id_categories: null,
+        editing: true
+      };
+      pizzas.value.push(newPizza);
+    };
 
     getPizzas();
     getCategories();
@@ -100,7 +113,8 @@ export default {
       toggleEditing,
       deletePizza,
       successMessage,
-      errorMessage
+      errorMessage,
+      addPizza
     };
   }
 };
@@ -153,6 +167,7 @@ export default {
                 {{ pizza.editing ? 'Сохранить' : 'Редактировать' }}
               </button>
               <button @click="deletePizza(pizza.id)">Удалить</button>
+              <router-link to="/addPizza">Добавить пиццу</router-link>
             </td>
           </tr>
         </tbody>

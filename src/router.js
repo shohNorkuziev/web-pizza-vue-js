@@ -8,6 +8,8 @@ import DataUser from "./components/DataUser.vue"
 import AdminPanel from "./components/AdminPanel.vue"
 import EditUser from "./components/EditUser.vue"
 import EditPizza from "./components/EditPizza.vue"
+import AddPizza from "./components/AddPizza.vue"
+import Order from "./components/Order.vue"
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -52,6 +54,16 @@ export default createRouter({
       path: "/EditPizza",
       component: EditPizza,
       name:'EditPizza'
+    },
+    {
+      path: "/AddPizza",
+      component: AddPizza,
+      name:'AddPizza'
+    },
+    {
+      path: "/Order",
+      component: Order,
+      name:'Order'
     },
   ],
 });

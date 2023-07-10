@@ -111,7 +111,7 @@ export default {
                 <router-link to="/DataUser">Личные данные</router-link>
               </li>
               <li>
-                <router-link to="/">Заказы</router-link>
+                <router-link to="/Order">Заказы</router-link>
               </li>
               <li v-if="isAdmin">
                 <router-link to="/AdminPanel">Админ панель</router-link>
