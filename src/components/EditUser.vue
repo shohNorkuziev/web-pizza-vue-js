@@ -6,12 +6,15 @@ export default {
   setup() {
     const roles = ref([]);
     const users = ref([]);
+    const successMessage = ref('');
+    const errorMessage = ref('');
 
     axios.get('http://localhost/pizza-app/includes/GotUser.php')
       .then(response => {
         if (response.data.success) {
           users.value = response.data.users;
         } else {
+          
           console.error('Ошибка при получении данных пользователей:', response.data.message);
         }
       })
@@ -44,8 +47,12 @@ export default {
         .then(response => {
           if (response.data.success) {
             console.log('Данные пользователя успешно обновлены');
+            successMessage.value = 'Данные пользователя успешно обновлены';
+            errorMessage.value = '';
           } else {
             console.error('Ошибка при обновлении данных пользователя:', response.data.message);
+            successMessage.value = ''+ response.data.message;
+            errorMessage.value = 'Ошибка при обновлении данных пользователя';
           }
         })
         .catch(error => {
@@ -69,7 +76,11 @@ export default {
         .then(response => {
           if (response.data.success) {
             console.log('Пользователь успешно удален');
+            successMessage.value = 'Пользователь успешно удален';
+            errorMessage.value = '';
           } else {
+            successMessage.value = '';
+            errorMessage.value = 'Ошибка при удалении пользователя';
             console.error('Ошибка при удалении пользователя:', response.data.message);
           }
         })
@@ -82,7 +93,9 @@ export default {
       roles,
       users,
       toggleEditing,
-      deleteUser
+      deleteUser,
+      successMessage,
+      errorMessage
     };
   }
 };
@@ -92,6 +105,8 @@ export default {
 <template>
     <div class="user-management">
       <h2>Управление пользователями</h2>
+      <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       <table>
         <thead>
           <tr>
@@ -116,8 +131,8 @@ export default {
               <input v-model="user.email" :disabled="!user.editing" />
             </td>
             <td>
-              <select v-model="user.role" :disabled="!user.editing">
-                <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.id }}</option>
+              <select required v-model="user.role" :disabled="!user.editing">
+                <option v-for="role in roles" :key="role.id" :value="role.id" v-bind:selected="role.id === user.role">{{ role.id }}</option>
               </select>
             </td>
             <td>
@@ -133,7 +148,14 @@ export default {
   </template>
   
   
-  <style>
+  <style scoped>
+  .success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
+}
   .user-management {
     text-align: center;
     margin: 20px;

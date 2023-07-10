@@ -1,20 +1,48 @@
 <script>
 import useCart from '../composables/useCART';
-import AddedPizza from './AddedPizza.vue'
-export default {
-    components: { AddedPizza },
+import AddedPizza from './AddedPizza.vue';
+import axios from 'axios';
 
-    setup() {
-        const { getTotalCount, getTotalPrice, items, clearCart } = useCart();
-        return {
-            items,
-            clearCart,
-            getTotalCount,
-            getTotalPrice,
-        }
+export default {
+  components: { AddedPizza },
+
+  setup() {
+    const { getTotalCount, getTotalPrice, items, clearCart } = useCart();
+    return {
+      items,
+      clearCart,
+      getTotalCount,
+      getTotalPrice,
+    };
+  },
+
+  methods: {
+    generateReceipt() {
+      const cartData = JSON.stringify(this.items);
+      axios
+        .post('http://localhost/pizza-app/includes/generateReceipt.php', cartData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          responseType: 'blob',
+        })
+        .then(response => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'receipt.pdf');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch(error => {
+          console.error('Ошибка при генерации чека:', error);
+        });
     },
-}
+  },
+};
 </script>
+
 
 <template>
     <div class="wrapper">
@@ -86,7 +114,7 @@ export default {
                                 <span>Вернуться назад</span>
                             </router-link>
 
-                            <div class="button pay-btn">
+                            <div class="button pay-btn" @click="generateReceipt">
                                 <span>Оплатить сейчас</span>
                             </div>
                         </div>

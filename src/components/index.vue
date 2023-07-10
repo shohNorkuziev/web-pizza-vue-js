@@ -28,14 +28,6 @@ export default {
       handleAnchorClick
     }
   },
-
-  mounted() {
-    // this.fetchData()
-    // setTimeout(() => {
-    //   this.fetchData();
-    //   setInterval(this.fetchData, 3000)
-    // }, 1000)
-  }
 }
 </script>
 

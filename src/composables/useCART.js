@@ -4,7 +4,7 @@ const items = ref([]);
  export default function useCart() {
   const addPizza = (properties) => {
     const existingPizza = items.value.find(item => item.id === properties.id && item.diameter === properties.diameter && item.dough === properties.dough);
-  
+    console.log(items.value)
     if (existingPizza) {
       existingPizza.quantity++;
     } else {

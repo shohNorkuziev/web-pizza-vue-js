@@ -6,6 +6,8 @@ export default {
   setup() {
     const pizzas = ref([]);
     const categories = ref([]);
+    const successMessage = ref('');
+    const errorMessage = ref('');
 
     const getPizzas = () => {
       axios.get('http://localhost/pizza-app/includes/getPizzas.php')
@@ -47,8 +49,12 @@ export default {
         .then(response => {
           if (response.data.success) {
             console.log('Данные пиццы успешно обновлены');
+            successMessage.value = 'Данные пиццы успешно обновлены';
+            errorMessage.value = '';
           } else {
             console.error('Ошибка при обновлении данных пиццы:', response.data.message);
+            successMessage.value = '';
+            errorMessage.value = 'Ошибка при обновлении данных пиццы';
           }
         })
         .catch(error => {
@@ -72,7 +78,11 @@ export default {
         .then(response => {
           if (response.data.success) {
             console.log('Пицца успешно удалена');
+            successMessage.value = 'Пицца успешно удалена';
+            errorMessage.value = '';
           } else {
+            successMessage.value = '';
+            errorMessage.value = 'Ошибка при удалении пиццы:';
             console.error('Ошибка при удалении пиццы:', response.data.message);
           }
         })
@@ -88,7 +98,9 @@ export default {
       pizzas,
       categories,
       toggleEditing,
-      deletePizza
+      deletePizza,
+      successMessage,
+      errorMessage
     };
   }
 };
@@ -98,6 +110,8 @@ export default {
 <template>
     <div class="pizza-management">
       <h2>Управление пиццами</h2>
+      <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       <table>
         <thead>
           <tr>
@@ -149,6 +163,37 @@ export default {
 
   
   <style scoped>
+  .success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
+}
+.pizza-management {
+    text-align: center;
+    margin: 20px;
+    margin-bottom: 15px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  thead {
+    background-color: #f1f1f1;
+  }
+  
+  button {
+    padding: 5px 10px;
+    margin-right: 5px;
+  }
   /* Стили для таблицы и других элементов компонента */
   </style>
   
